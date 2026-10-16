@@ -1,0 +1,53 @@
+// ВАЖНО: эти правила исполняет сервер Firestore для запросов мобильных клиентов.
+// Никакое скрытие кнопки в Android не заменяет серверного контроля.
+// Для проекта нужно опубликовать этот файл в Firebase Console → Firestore → Rules.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Требуем проверенную Firebase сессию и запрещаем anonymous provider.
+    function signedIn() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+    // ГЛАВНОЕ УСЛОВИЕ: UID из проверенного Firebase токена == UID из пути.
+    // Передать чужой UID в URL запроса недостаточно для получения доступа.
+    function owner(uid) { return signedIn() && request.auth.uid == uid; }
+    // Валидация целого документа ПОСЛЕ create/update (request.resource.data).
+    // hasOnly запрещает неожиданные поля, hasAll требует обязательные.
+    // ownerId должен совпадать с UID пути.
+    function validItem(uid) {
+      return request.resource.data.keys().hasOnly(['title','priority','completed','flagged','ownerId'])
+        && request.resource.data.keys().hasAll(['title','priority','completed','flagged','ownerId'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 200
+        && request.resource.data.priority is int
+        && request.resource.data.priority >= 0
+        && request.resource.data.priority <= 3
+        && request.resource.data.completed is bool
+        && request.resource.data.flagged is bool
+        && request.resource.data.ownerId == uid;
+    }
+
+    // {userId} берётся из запроса. Это НЕ автоматически подтверждённая личность!
+    match /users/{userId}/todoitems/{itemId} {
+      // Авторизованный пользователь может работать ТОЛЬКО внутри собственного UID.
+      // get: одна задача; list: запрос списка. Оба разрешены только владельцу.
+      allow get, list: if owner(userId);
+      // create: проверяем и владельца, и формат новой задачи.
+      allow create: if owner(userId) && validItem(userId);
+      // update: дополнительно проверяем владельца СТАРОГО документа (resource).
+      // Затем validItem проверяет будущую полную версию документа.
+      allow update: if owner(userId)
+                    && resource.data.ownerId == userId
+                    && validItem(userId);
+      // delete: удалять чужое или неправильно принадлежащее содержимое нельзя.
+      allow delete: if owner(userId) && resource.data.ownerId == userId;
+    }
+    // Закрытый по умолчанию остаток: старые /todolist и прочие пути.
+    // ВАЖНО: Firestore объединяет совпадающие allow как OR; if false
+    // НЕ переопределило бы где-нибудь написанное разрешение if true.
+    // Здесь иных разрешений нет, поэтому всё остальное закрыто.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
