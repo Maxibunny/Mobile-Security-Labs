@@ -1,0 +1,153 @@
+SDK: /c/Users/MaxSimonov/AppData/Local/Android/Sdk
+Устройство: emulator-5554, Android 16 (API 36)
+
+=== manifest (шаг 1) ===
+Компоненты (тип|имя|exported|permission):
+    | activity|edu.androidsec.notes.MainActivity|true|-
+    | receiver|edu.androidsec.notes.reminder.ReminderActionReceiver|false|-
+    | provider|androidx.core.content.FileProvider|false|-
+    | provider|edu.androidsec.notes.provider.TitlesProvider|true|edu.androidsec.notes.permission.READ_NOTES
+    | provider|androidx.startup.InitializationProvider|false|-
+    | service|androidx.room.MultiInstanceInvalidationService|false|-
+PASS  у каждого компонента явно задан android:exported
+PASS  экспортированы только: edu.androidsec.notes.MainActivity edu.androidsec.notes.provider.TitlesProvider
+    | edu.androidsec.notes.MainActivity
+    | edu.androidsec.notes.provider.TitlesProvider
+PASS  edu.androidsec.notes.reminder.ReminderActionReceiver объявлен, exported=false
+    | receiver|edu.androidsec.notes.reminder.ReminderActionReceiver|false|-
+PASS  androidx.core.content.FileProvider объявлен, exported=false
+    | provider|androidx.core.content.FileProvider|false|-
+PASS  edu.androidsec.notes.provider.TitlesProvider объявлен, exported=true
+    | provider|edu.androidsec.notes.provider.TitlesProvider|true|edu.androidsec.notes.permission.READ_NOTES
+PASS  edu.androidsec.notes.permission.READ_NOTES объявлено с protectionLevel=signature
+    | <permission android:label="@ref/0x7f090075" android:name="edu.androidsec.notes.permission.READ_NOTES" android:protectionLevel="0x2" android:description="@ref/0x7f090074" /> 
+PASS  TitlesProvider защищён android:permission=edu.androidsec.notes.permission.READ_NOTES
+Запрошенные разрешения:
+    | android.permission.POST_NOTIFICATIONS
+    | edu.androidsec.notes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+PASS  лишних разрешений нет (допустимы: android.permission.POST_NOTIFICATIONS edu.androidsec.notes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION)
+PASS  POST_NOTIFICATIONS запрошено (нужно для напоминания)
+
+=== closed (шаг 2) ===
+PASS  am broadcast (явный и в пакет): ресивер не вызывался
+    | Broadcasting: Intent { act=edu.androidsec.notes.action.DONE flg=0x400000 cmp=edu.androidsec.notes/.reminder.ReminderActionReceiver (has extras) }
+    | Broadcast completed: result=0
+    | Broadcasting: Intent { act=edu.androidsec.notes.action.DONE flg=0x400000 pkg=edu.androidsec.notes (has extras) }
+    | Broadcast completed: result=0
+    | <logcat: строк ReminderActionReceiver нет>
+PASS  content read на FileProvider отклонён
+    | Error while accessing provider:edu.androidsec.notes.files
+    | java.lang.SecurityException: Permission Denial: opening provider androidx.core.content.FileProvider from (null) (pid=4847, uid=2000) that is not exported from UID 10218
+    | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
+    | 	at android.os.Parcel.createException(Parcel.java:3324)
+    | 	at android.os.Parcel.readException(Parcel.java:3307)
+    | 	at android.os.Parcel.readException(Parcel.java:3249)
+    | 	at android.app.IActivityManager$Stub$Proxy.getContentProviderExternal(IActivityManager.java:8239)
+    | 	at com.android.commands.content.Content$Command.execute(Content.java:516)
+    | 	at com.android.commands.content.Content.main(Content.java:735)
+    | 	at com.android.internal.os.RuntimeInit.nativeFinishInit(Native Method)
+    | 	at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:371)
+    | Caused by: android.os.RemoteException: Remote stack trace:
+    | 	at com.android.server.am.ContentProviderHelper.checkAssociationAndPermissionLocked(ContentProviderHelper.java:726)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:408)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternalUnchecked(ContentProviderHelper.java:168)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternal(ContentProviderHelper.java:162)
+    | 	at com.android.server.am.ActivityManagerService.getContentProviderExternal(ActivityManagerService.java:7090)
+
+=== deeplink (шаг 4) ===
+PASS  notes://note/1: открыто приложением, падения нет
+    | Starting: Intent { act=android.intent.action.VIEW dat=notes://note/... }
+    | Status: ok
+    | LaunchState: COLD
+    | Activity: edu.androidsec.notes/.MainActivity
+    | TotalTime: 5139
+    | WaitTime: 5148
+    | Complete
+PASS  notes://note/999999: открыто приложением, падения нет
+    | Starting: Intent { act=android.intent.action.VIEW dat=notes://note/... }
+    | Status: ok
+    | LaunchState: COLD
+    | Activity: edu.androidsec.notes/.MainActivity
+    | TotalTime: 4926
+    | WaitTime: 4933
+    | Complete
+PASS  notes://note/abc: открыто приложением, падения нет
+    | Starting: Intent { act=android.intent.action.VIEW dat=notes://note/... }
+    | Status: ok
+    | LaunchState: COLD
+    | Activity: edu.androidsec.notes/.MainActivity
+    | TotalTime: 4733
+    | WaitTime: 4742
+    | Complete
+PASS  notes://note/: открыто приложением, падения нет
+    | Starting: Intent { act=android.intent.action.VIEW dat=notes://note/... }
+    | Status: ok
+    | LaunchState: COLD
+    | Activity: edu.androidsec.notes/.MainActivity
+    | TotalTime: 5032
+    | WaitTime: 5039
+    | Complete
+Что показано на экране (сообщение об ошибке для abc и пустого id) — проверяется вручную.
+
+=== provider (шаг 7) ===
+PASS  content query от shell отклонён (SecurityException)
+    | Error while accessing provider:edu.androidsec.notes.provider
+    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=5046, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
+    | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
+    | 	at android.os.Parcel.createException(Parcel.java:3324)
+    | 	at android.os.Parcel.readException(Parcel.java:3307)
+    | 	at android.os.Parcel.readException(Parcel.java:3249)
+    | 	at android.app.IActivityManager$Stub$Proxy.getContentProviderExternal(IActivityManager.java:8239)
+    | 	at com.android.commands.content.Content$Command.execute(Content.java:516)
+    | 	at com.android.commands.content.Content.main(Content.java:735)
+    | 	at com.android.internal.os.RuntimeInit.nativeFinishInit(Native Method)
+    | 	at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:371)
+    | Caused by: android.os.RemoteException: Remote stack trace:
+    | 	at com.android.server.am.ContentProviderHelper.checkAssociationAndPermissionLocked(ContentProviderHelper.java:726)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:310)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternalUnchecked(ContentProviderHelper.java:168)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternal(ContentProviderHelper.java:162)
+    | 	at com.android.server.am.ActivityManagerService.getContentProviderExternal(ActivityManagerService.java:7090)
+PASS  content insert отклонён
+    | Error while accessing provider:edu.androidsec.notes.provider
+    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=5057, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
+    | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
+    | 	at android.os.Parcel.createException(Parcel.java:3324)
+    | 	at android.os.Parcel.readException(Parcel.java:3307)
+    | 	at android.os.Parcel.readException(Parcel.java:3249)
+    | 	at android.app.IActivityManager$Stub$Proxy.getContentProviderExternal(IActivityManager.java:8239)
+    | 	at com.android.commands.content.Content$Command.execute(Content.java:516)
+    | 	at com.android.commands.content.Content.main(Content.java:735)
+    | 	at com.android.internal.os.RuntimeInit.nativeFinishInit(Native Method)
+    | 	at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:371)
+    | Caused by: android.os.RemoteException: Remote stack trace:
+    | 	at com.android.server.am.ContentProviderHelper.checkAssociationAndPermissionLocked(ContentProviderHelper.java:726)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:310)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternalUnchecked(ContentProviderHelper.java:168)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternal(ContentProviderHelper.java:162)
+    | 	at com.android.server.am.ActivityManagerService.getContentProviderExternal(ActivityManagerService.java:7090)
+PASS  content delete отклонён
+    | Error while accessing provider:edu.androidsec.notes.provider
+    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=5068, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
+    | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
+    | 	at android.os.Parcel.createException(Parcel.java:3324)
+    | 	at android.os.Parcel.readException(Parcel.java:3307)
+    | 	at android.os.Parcel.readException(Parcel.java:3249)
+    | 	at android.app.IActivityManager$Stub$Proxy.getContentProviderExternal(IActivityManager.java:8239)
+    | 	at com.android.commands.content.Content$Command.execute(Content.java:516)
+    | 	at com.android.commands.content.Content.main(Content.java:735)
+    | 	at com.android.internal.os.RuntimeInit.nativeFinishInit(Native Method)
+    | 	at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:371)
+    | Caused by: android.os.RemoteException: Remote stack trace:
+    | 	at com.android.server.am.ContentProviderHelper.checkAssociationAndPermissionLocked(ContentProviderHelper.java:726)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:310)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternalUnchecked(ContentProviderHelper.java:168)
+    | 	at com.android.server.am.ContentProviderHelper.getContentProviderExternal(ContentProviderHelper.java:162)
+    | 	at com.android.server.am.ActivityManagerService.getContentProviderExternal(ActivityManagerService.java:7090)
+Клиент с той же подписью (видит заголовки) и клиент с другой подписью (SecurityException) — проверяются вручную.
+
+ИТОГО: PASS=18 FAIL=0
+
+=== stderr ===
+/data/app/~~aAP8m15IV53tf_tz3XgcXw==/edu.androidsec.notes-WBvv6mHH8DTy-Xk4zgFAfg==/base.apk: 1 file pulled, 0 skipped. 42.6 MB/s (11143399 bytes in 0.249s)
+

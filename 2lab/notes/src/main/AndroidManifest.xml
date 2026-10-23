@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ДЛЯ ЗАЩИТЫ: Главная политика доступа Android. Проверьте MERGED manifest: библиотеки могут добавлять компоненты. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ipc-1: единственное необходимое опасное разрешение. Photo Picker не требует
+         CAMERA / READ_MEDIA_IMAGES / READ_EXTERNAL_STORAGE. Запрос — в момент напоминания. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- ipc-6: Android выдаёт signature-разрешение только приложениям с тем же сертификатом.
+         Имя разрешения зафиксировано заданием; не переименовывать. -->
+    <permission
+        android:name="edu.androidsec.notes.permission.READ_NOTES"
+        android:label="@string/permission_read_notes_label"
+        android:description="@string/permission_read_notes_description"
+        android:protectionLevel="signature" />
+
+    <application
+        android:name=".NotesApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Notes">
+
+        <!-- ipc-1/3: единственная публичная Activity; входящие URI всегда валидируются. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- ipc-3: notes://note/<id> — схема и host фиксированы. Проверка id в коде. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="notes" android:host="note" />
+            </intent-filter>
+        </activity>
+
+        <!-- ipc-4: не экспортирован: посторонний am broadcast не сможет вызвать onReceive.
+             Нажатие на уведомление отправляет явный immutable PendingIntent. -->
+        <receiver
+            android:name=".reminder.ReminderActionReceiver"
+            android:exported="false" />
+
+        <!-- ipc-5: файловый провайдер только для разовых URI-грантов получателям ACTION_SEND. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="edu.androidsec.notes.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- ipc-6: провайдер виден клиенту, но ВСЕ операции защищены signature:
+             android:permission покрывает и чтение, и запись. Запись дополнительно отвергает код. -->
+        <provider
+            android:name=".provider.TitlesProvider"
+            android:authorities="edu.androidsec.notes.provider"
+            android:exported="true"
+            android:permission="edu.androidsec.notes.permission.READ_NOTES" />
+
+        <!-- ipc-1: вспомогательный ресивер ProfileInstaller не нужен функциям лабораторной.
+             Без него merged manifest не содержит лишний публичный компонент библиотеки.
+             Удаление снижает возможности сбора/install профилей, но не влияет на заметки. -->
+        <receiver
+            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+            tools:node="remove" />
+    </application>
+</manifest>

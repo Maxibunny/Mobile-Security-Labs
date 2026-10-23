@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ДЛЯ ЗАЩИТЫ: FileProvider сопоставляет виртуальный путь exports с cacheDir/exports/. Никакой другой каталог не указан. -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ipc-5: отдаём только cacheDir/exports/. Никаких root-path, files-path или external-path. -->
+    <cache-path name="exports" path="exports/" />
+</paths>

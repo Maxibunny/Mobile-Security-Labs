@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- УЧЕБНЫЙ КОММЕНТАРИЙ: Строки интерфейса хранятся здесь, а Kotlin обращается через R.string.* — не дублируем текст в бизнес-логике. -->
+<resources>
+    <string name="app_name">Заметки</string>
+
+    <!-- Список -->
+    <string name="list_title">Заметки</string>
+    <string name="list_empty">Заметок пока нет. Нажмите «+», чтобы создать первую.</string>
+    <string name="list_add">Новая заметка</string>
+    <string name="list_delete">Удалить заметку</string>
+
+    <!-- Экран заметки -->
+    <string name="note_title_new">Новая заметка</string>
+    <string name="note_title_edit">Заметка</string>
+    <string name="note_field_title">Заголовок</string>
+    <string name="note_field_body">Текст</string>
+    <string name="note_back">Назад</string>
+    <string name="note_save">Сохранить</string>
+    <string name="note_delete">Удалить</string>
+    <string name="note_saved">Сохранено</string>
+    <string name="note_deleted">Заметка удалена</string>
+    <string name="note_not_found">Заметка не найдена</string>
+    <string name="note_not_found_hint">Заметки с таким номером нет: её удалили или ссылка указывает на несуществующий id.</string>
+    <string name="note_save_first">Сначала сохраните заметку</string>
+    <string name="note_remind">Напомнить через 10 секунд</string>
+    <string name="note_share">Поделиться файлом</string>
+    <string name="note_attach_photo">Прикрепить фото</string>
+    <string name="note_remove_photo">Убрать фото</string>
+    <string name="note_photo_description">Фото, прикреплённое к заметке</string>
+    <string name="note_photo_failed">Не удалось сохранить фото</string>
+    <string name="note_untitled">Без названия</string>
+
+    <!-- Deep link -->
+    <string name="deeplink_invalid">Некорректная ссылка на заметку</string>
+
+    <!-- Напоминания и разрешение на уведомления -->
+    <string name="channel_reminders_name">Напоминания</string>
+    <string name="channel_reminders_description">Напоминания о заметках</string>
+    <string name="reminder_notification_title">Напоминание</string>
+    <string name="reminder_scheduled">Напоминание придёт через 10 секунд</string>
+    <string name="reminder_action_done">Готово</string>
+    <string name="reminder_done_toast">Напоминание закрыто</string>
+    <string name="permission_rationale_title">Нужно разрешение на уведомления</string>
+    <string name="permission_rationale_text">Напоминание показывается уведомлением. Без разрешения приложение продолжит работать, но напомнить не сможет.</string>
+    <string name="permission_rationale_continue">Продолжить</string>
+    <string name="permission_rationale_cancel">Не сейчас</string>
+    <string name="permission_denied_toast">Без разрешения напоминание не покажется. Заметка сохранена.</string>
+    <string name="permission_settings_title">Уведомления отключены</string>
+    <string name="permission_settings_text">Система больше не покажет запрос. Включить уведомления можно в настройках приложения.</string>
+    <string name="permission_settings_open">Открыть настройки</string>
+    <string name="permission_settings_cancel">Закрыть</string>
+
+    <!-- Экспорт -->
+    <string name="share_chooser_title">Отправить заметку</string>
+
+    <!-- Провайдер заголовков -->
+    <string name="permission_read_notes_label">Чтение заголовков заметок</string>
+    <string name="permission_read_notes_description">Позволяет приложениям с той же подписью читать список заголовков заметок.</string>
+</resources>

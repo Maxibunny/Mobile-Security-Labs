@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ДЛЯ ЗАЩИТЫ: Клиент использует свое отдельное applicationId и запрашивает разрешение владельца notes. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Клиент просит signature-разрешение «Заметок». Система выдаст его только если обе
+         программы подписаны одним ключом; иначе query() даст SecurityException. -->
+    <uses-permission android:name="edu.androidsec.notes.permission.READ_NOTES" />
+
+    <!-- С Android 11 (API 30) чужой пакет виден только если он объявлен в <queries>. -->
+    <queries>
+        <package android:name="edu.androidsec.notes" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Client">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+            tools:node="remove" />
+    </application>
+
+</manifest>

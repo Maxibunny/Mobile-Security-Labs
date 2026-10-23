@@ -1,0 +1,6 @@
+2lab/.gradle/
+2lab/.idea/
+2lab/.kotlin/
+2lab/**/build/
+2lab/logs/
+2lab/local.properties

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="1"
+    android:versionName="1.0"
+    android:compileSdkVersion="36"
+    android:compileSdkVersionCodename="16"
+    package="edu.androidsec.notes"
+    platformBuildVersionCode="36"
+    platformBuildVersionName="16">
+
+    <uses-sdk
+        android:minSdkVersion="26"
+        android:targetSdkVersion="36" />
+
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <permission
+        android:label="@ref/0x7f090075"
+        android:name="edu.androidsec.notes.permission.READ_NOTES"
+        android:protectionLevel="0x2"
+        android:description="@ref/0x7f090074" />
+
+    <permission
+        android:name="edu.androidsec.notes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:protectionLevel="0x2" />
+
+    <uses-permission
+        android:name="edu.androidsec.notes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+
+    <application
+        android:theme="@ref/0x7f0a0009"
+        android:label="@ref/0x7f090001"
+        android:icon="@ref/0x7f080000"
+        android:name="edu.androidsec.notes.NotesApp"
+        android:debuggable="true"
+        android:allowBackup="false"
+        android:supportsRtl="true"
+        android:extractNativeLibs="false"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory">
+
+        <activity
+            android:name="edu.androidsec.notes.MainActivity"
+            android:exported="true"
+            android:launchMode="1">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.MAIN" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.VIEW" />
+
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+
+                <category
+                    android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="notes"
+                    android:host="note" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="edu.androidsec.notes.reminder.ReminderActionReceiver"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:authorities="edu.androidsec.notes.files"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@ref/0x7f0c0000" />
+        </provider>
+
+        <provider
+            android:name="edu.androidsec.notes.provider.TitlesProvider"
+            android:permission="edu.androidsec.notes.permission.READ_NOTES"
+            android:exported="true"
+            android:authorities="edu.androidsec.notes.provider" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:exported="false"
+            android:authorities="edu.androidsec.notes.androidx-startup">
+
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
+                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+        <service
+            android:name="androidx.room.MultiInstanceInvalidationService"
+            android:exported="false"
+            android:directBootAware="true" />
+    </application>
+</manifest>

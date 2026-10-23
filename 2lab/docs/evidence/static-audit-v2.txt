@@ -1,0 +1,24 @@
+PASS: AGP 8.13 / Compose 1.9 / Navigation 2.9 family
+PASS: Kotlin/KSP pair
+PASS: Gradle 8.13 wrapper
+PASS: no forced Java 25 daemon
+PASS: notes: Kotlin Android plugin, API 36
+PASS: client: Kotlin Android plugin, API 36
+PASS: minimum uses-permission
+PASS: signature permission declared
+PASS: component .MainActivity exported=true
+PASS: component .reminder.ReminderActionReceiver exported=false
+PASS: component androidx.core.content.FileProvider exported=false
+PASS: component .provider.TitlesProvider exported=true
+PASS: provider permission for all operations
+PASS: FileProvider grants URI
+PASS: one FileProvider directory
+PASS: strict deep link parsing
+PASS: not-found state prevents edits
+PASS: immutable explicit PendingIntents
+PASS: DONE receiver
+PASS: photo picker
+PASS: permission rationale
+PASS: scoped file share
+PASS: read-only titles provider
+Static audit PASS: source shape only; run scripts/check.sh all on a device!
