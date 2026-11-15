@@ -1,0 +1,24 @@
+# Gradle
+.gradle/
+**/build/
+.kotlin/
+
+# Локальные настройки и ключи: никогда не коммитить
+local.properties
+client/signing.properties
+*.jks
+*.keystore
+
+# IDE
+*.iml
+.idea/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Логи и вывод скриптов
+*.log
+*.hprof
+scripts/out/

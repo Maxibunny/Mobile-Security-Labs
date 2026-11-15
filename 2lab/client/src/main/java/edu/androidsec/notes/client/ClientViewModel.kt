@@ -35,7 +35,7 @@ class ClientViewModel(
     fun load() {
         _uiState.update { it.copy(isLoading = true, error = null) }
         viewModelScope.launch {
-            // Подсказки для защиты: наличие Notes, выданное разрешение и совпадение подписи.
+            // наличие Notes, выданное разрешение и совпадение подписи.
             val diagnostics = titlesClient.diagnostics()
             // Только реальный ContentResolver.query решает, есть ли доступ.
             titlesClient.queryTitles()

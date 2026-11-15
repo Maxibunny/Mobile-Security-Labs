@@ -37,7 +37,7 @@ PASS  am broadcast (явный и в пакет): ресивер не вызыв
     | <logcat: строк ReminderActionReceiver нет>
 PASS  content read на FileProvider отклонён
     | Error while accessing provider:edu.androidsec.notes.files
-    | java.lang.SecurityException: Permission Denial: opening provider androidx.core.content.FileProvider from (null) (pid=4847, uid=2000) that is not exported from UID 10218
+    | java.lang.SecurityException: Permission Denial: opening provider androidx.core.content.FileProvider from (null) (pid=9034, uid=2000) that is not exported from UID 10221
     | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
     | 	at android.os.Parcel.createException(Parcel.java:3324)
     | 	at android.os.Parcel.readException(Parcel.java:3307)
@@ -60,39 +60,39 @@ PASS  notes://note/1: открыто приложением, падения не
     | Status: ok
     | LaunchState: COLD
     | Activity: edu.androidsec.notes/.MainActivity
-    | TotalTime: 5139
-    | WaitTime: 5148
+    | TotalTime: 4035
+    | WaitTime: 4041
     | Complete
 PASS  notes://note/999999: открыто приложением, падения нет
     | Starting: Intent { act=android.intent.action.VIEW dat=notes://note/... }
     | Status: ok
     | LaunchState: COLD
     | Activity: edu.androidsec.notes/.MainActivity
-    | TotalTime: 4926
-    | WaitTime: 4933
+    | TotalTime: 3237
+    | WaitTime: 3240
     | Complete
 PASS  notes://note/abc: открыто приложением, падения нет
     | Starting: Intent { act=android.intent.action.VIEW dat=notes://note/... }
     | Status: ok
     | LaunchState: COLD
     | Activity: edu.androidsec.notes/.MainActivity
-    | TotalTime: 4733
-    | WaitTime: 4742
+    | TotalTime: 2859
+    | WaitTime: 2863
     | Complete
 PASS  notes://note/: открыто приложением, падения нет
     | Starting: Intent { act=android.intent.action.VIEW dat=notes://note/... }
     | Status: ok
     | LaunchState: COLD
     | Activity: edu.androidsec.notes/.MainActivity
-    | TotalTime: 5032
-    | WaitTime: 5039
+    | TotalTime: 3282
+    | WaitTime: 3293
     | Complete
 Что показано на экране (сообщение об ошибке для abc и пустого id) — проверяется вручную.
 
 === provider (шаг 7) ===
 PASS  content query от shell отклонён (SecurityException)
     | Error while accessing provider:edu.androidsec.notes.provider
-    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=5046, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
+    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=9228, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
     | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
     | 	at android.os.Parcel.createException(Parcel.java:3324)
     | 	at android.os.Parcel.readException(Parcel.java:3307)
@@ -110,7 +110,7 @@ PASS  content query от shell отклонён (SecurityException)
     | 	at com.android.server.am.ActivityManagerService.getContentProviderExternal(ActivityManagerService.java:7090)
 PASS  content insert отклонён
     | Error while accessing provider:edu.androidsec.notes.provider
-    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=5057, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
+    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=9239, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
     | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
     | 	at android.os.Parcel.createException(Parcel.java:3324)
     | 	at android.os.Parcel.readException(Parcel.java:3307)
@@ -128,7 +128,7 @@ PASS  content insert отклонён
     | 	at com.android.server.am.ActivityManagerService.getContentProviderExternal(ActivityManagerService.java:7090)
 PASS  content delete отклонён
     | Error while accessing provider:edu.androidsec.notes.provider
-    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=5068, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
+    | java.lang.SecurityException: Permission Denial: opening provider edu.androidsec.notes.provider.TitlesProvider from (null) (pid=9250, uid=2000) requires edu.androidsec.notes.permission.READ_NOTES or edu.androidsec.notes.permission.READ_NOTES
     | 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
     | 	at android.os.Parcel.createException(Parcel.java:3324)
     | 	at android.os.Parcel.readException(Parcel.java:3307)
@@ -149,5 +149,5 @@ PASS  content delete отклонён
 ИТОГО: PASS=18 FAIL=0
 
 === stderr ===
-/data/app/~~aAP8m15IV53tf_tz3XgcXw==/edu.androidsec.notes-WBvv6mHH8DTy-Xk4zgFAfg==/base.apk: 1 file pulled, 0 skipped. 42.6 MB/s (11143399 bytes in 0.249s)
+/data/app/~~BkPfpibLY48sRartvLGaJA==/edu.androidsec.notes-IZ1KXZoX5SGTiH9xBfWafQ==/base.apk: 1 file pulled, 0 skipped. 61.8 MB/s (11143407 bytes in 0.172s)
 

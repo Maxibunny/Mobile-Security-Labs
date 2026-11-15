@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- УЧЕБНЫЙ КОММЕНТАРИЙ: Ресурсы оформления Android; на разрешения и экспорт компонентов не влияют. -->
+<resources>
+    <!-- Тема окна; оформление экранов задаётся в Compose (ui/theme/Theme.kt). -->
+    <style name="Theme.Notes" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

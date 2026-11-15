@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- УЧЕБНЫЙ КОММЕНТАРИЙ: Строки интерфейса хранятся здесь, а Kotlin обращается через R.string.* — не дублируем текст в бизнес-логике. -->
+<resources>
+    <string name="app_name">Клиент заметок</string>
+    <string name="client_title">Клиент заметок</string>
+    <string name="client_subtitle">Запрос к content://edu.androidsec.notes.provider/notes</string>
+    <string name="client_retry">Повторить запрос</string>
+    <string name="client_loading">Запрашиваем заголовки…</string>
+    <string name="client_empty">Провайдер ответил, но заголовков нет.</string>
+    <string name="client_titles_header">Заголовки заметок</string>
+    <string name="client_error_header">Ошибка</string>
+    <string name="client_null_cursor">Провайдер вернул null: нет записи в манифесте или query() не реализован.</string>
+    <string name="client_permission_granted">Разрешение READ_NOTES: выдано</string>
+    <string name="client_permission_denied">Разрешение READ_NOTES: не выдано</string>
+    <string name="client_signature_match">Подпись совпадает с «Заметками»</string>
+    <string name="client_signature_mismatch">Подпись НЕ совпадает с «Заметками»</string>
+    <string name="client_notes_not_installed">Приложение «Заметки» не установлено</string>
+</resources>

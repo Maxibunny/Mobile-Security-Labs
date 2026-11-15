@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- УЧЕБНЫЙ КОММЕНТАРИЙ: Графический ресурс для значка приложения/уведомления; не является Android IPC-компонентом. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,36h48v6H30zM30,51h48v6H30zM30,66h32v6H30z" />
+</vector>
