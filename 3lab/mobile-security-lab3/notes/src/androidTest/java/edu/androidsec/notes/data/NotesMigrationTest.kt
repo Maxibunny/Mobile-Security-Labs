@@ -1,5 +1,18 @@
 package edu.androidsec.notes.data
 
+/*
+ * ФАЙЛ: NotesMigrationTest.kt
+ *
+ * Назначение:
+ * Проверка миграции базы Room со старой версии на новую.
+ *
+ * Основная цель лабораторной:
+ * убедиться, что новые поля tags и is_secret добавляются
+ * без потери заметок, созданных в предыдущей версии.
+ *
+ * Точные @Test-методы необходимо посмотреть в исходнике.
+ */
+
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider

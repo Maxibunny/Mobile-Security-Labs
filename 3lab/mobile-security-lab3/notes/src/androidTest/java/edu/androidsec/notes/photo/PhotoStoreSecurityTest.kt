@@ -1,5 +1,15 @@
 package edu.androidsec.notes.photo
 
+/*
+ * ФАЙЛ: PhotoStoreSecurityTest.kt
+ *
+ * Назначение:
+ * Проверка безопасности хранения и обработки фотографий
+ * во внутреннем хранилище приложения.
+ *
+ * Точные @Test-методы необходимо посмотреть в исходнике.
+ */
+
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4

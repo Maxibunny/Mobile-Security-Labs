@@ -1,5 +1,15 @@
 package edu.androidsec.notes.data
 
+/*
+ * ФАЙЛ: NoteDaoSecurityTest.kt
+ *
+ * Назначение:
+ * Проверка безопасности операций с заметками на уровне Room DAO.
+ * Здесь исследуется поведение запросов к базе данных.
+ *
+ * Точные @Test-методы необходимо посмотреть в исходнике.
+ */
+
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4

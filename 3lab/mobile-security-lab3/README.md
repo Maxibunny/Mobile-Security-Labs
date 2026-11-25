@@ -66,7 +66,3 @@
 ```
 
 Скрипт использует `adb` и `apkanalyzer` из Android SDK. В ЛР2 проверь: системный Photo Picker; разрешение `POST_NOTIFICATIONS` по запросу; уведомление и кнопку «Готово»; `notes://note/1` и некорректные ссылки; «Поделиться файлом» через FileProvider; чтение заголовков в `client` при одинаковой подписи и отказ при разной. `scripts/check.sh` проверяет установленный APK, а не исходники.
-
-**Про Git:** если сдаёшь ссылку на репозиторий, копируй обновлённые файлы **в существующий clone ветки `starter`**, сохрани `.git` и историю коммитов. Не загружай `local.properties`, `*.jks`, `client/signing.properties`.
-
-**Сборка:** исправлен неверный `import androidx.compose.foundation.text.input.edit` в `NoteScreen.kt`: `edit { ... }` — метод `TextFieldState`, отдельный импорт не нужен. Сборку и тесты необходимо подтвердить в Android Studio.

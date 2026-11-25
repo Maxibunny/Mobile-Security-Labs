@@ -1,5 +1,18 @@
 package edu.androidsec.notes.data
 
+/*
+ * ФАЙЛ: SearchEscapingTest.kt
+ *
+ * Назначение:
+ * Проверка экранирования специальных символов SQL LIKE.
+ *
+ * В лабораторной важно, чтобы символы %, _ и \
+ * воспринимались как обычный текст при поиске,
+ * а не как специальные шаблоны SQL.
+ *
+ * Точные @Test-методы необходимо посмотреть в исходнике.
+ */
+
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
